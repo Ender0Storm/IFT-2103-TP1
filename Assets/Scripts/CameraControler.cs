@@ -12,7 +12,7 @@ public class CameraControler : MonoBehaviour
     private Vector3 offset;
     private Rigidbody rb;
 
-    private GameObject main_camera;
+    private GameObject mainCamera;
 
     void Start () 
     {
