@@ -4,18 +4,5 @@ using UnityEngine;
 
 public class MinipotBoxCollider : MinipotCollider
 {
-    public override void OnCollisionEnter()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void OnCollisionExit()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void OnCollisionStay()
-    {
-        throw new System.NotImplementedException();
-    }
+    public Vector3 m_Scale;
 }

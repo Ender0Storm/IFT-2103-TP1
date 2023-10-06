@@ -7,7 +7,6 @@ public class MinipotRigidbody : MonoBehaviour
 {
     public float m_Mass;
     public float m_Gravity;
-    private Rigidbody rb;
 
     [NonSerialized]
     public Vector3 m_Velocity;
@@ -21,7 +20,6 @@ public class MinipotRigidbody : MonoBehaviour
     {
         m_Velocity = new Vector3();
         m_Acceleration = new Vector3();
-        this.
 
         m_Forces = new List<Vector3>();
     }

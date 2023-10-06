@@ -1,26 +1,34 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MinipotBallCollider : MinipotCollider
 {
-    public override void OnCollisionEnter()
-    {
-        throw new System.NotImplementedException();
-    }
+    public float m_Scale;
 
-    public override void OnCollisionExit()
+    public bool CollidesWith(MinipotCollider other)
     {
-        throw new System.NotImplementedException();
-    }
+        if (other is MinipotBallCollider)
+        {
+            MinipotBallCollider ballCollider = (MinipotBallCollider)other;
 
-    public override void OnCollisionStay()
-    {
-        throw new System.NotImplementedException();
-    }
+            return (ballCollider.transform.position - transform.position).sqrMagnitude <=
+                    Mathf.Pow(ballCollider.m_Scale * ballCollider.transform.localScale.x + m_Scale * transform.localScale.x, 2);
+        }
+        else if (other is MinipotBoxCollider)
+        {
+            MinipotBoxCollider boxCollider = (MinipotBoxCollider)other;
+            Bounds boxBounds = new Bounds(boxCollider.transform.position, boxCollider.transform.localScale * m_Scale);
 
-    public bool collidesWith(MinipotCollider other)
-    {
+            return (boxBounds.ClosestPoint(transform.position) - transform.position).sqrMagnitude <= Mathf.Pow(m_Scale * transform.localScale.x, 2);
+        }
+
         return false;
+    }
+
+    internal void BounceOff(MinipotCollider collider)
+    {
+        throw new NotImplementedException();
     }
 }
