@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CustomRigidbody : MonoBehaviour
+public class MinipotRigidbody : MonoBehaviour
 {
     public float m_Mass;
     public float m_Gravity;
