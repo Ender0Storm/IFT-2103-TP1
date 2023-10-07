@@ -19,16 +19,10 @@ public class MinipotBallCollider : MinipotCollider
         else if (other is MinipotBoxCollider)
         {
             MinipotBoxCollider boxCollider = (MinipotBoxCollider)other;
-            Bounds boxBounds = new Bounds(boxCollider.transform.position, boxCollider.transform.localScale * m_Scale);
 
-            return (boxBounds.ClosestPoint(transform.position) - transform.position).sqrMagnitude <= Mathf.Pow(m_Scale * transform.localScale.x, 2);
+            return (boxCollider.m_CollisionBox.ClosestPoint(transform.position) - transform.position).sqrMagnitude <= Mathf.Pow(m_Scale * transform.localScale.x, 2);
         }
 
         return false;
-    }
-
-    internal void BounceOff(MinipotCollider collider)
-    {
-        throw new NotImplementedException();
     }
 }

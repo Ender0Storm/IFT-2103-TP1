@@ -6,12 +6,14 @@ public class CollisionManager : MonoBehaviour
 {
     private bool[] m_CurrentlyColliding;
 
-    public MinipotCollider[] m_Colliders;
+    private MinipotCollider[] m_Colliders;
     private MinipotBallCollider m_BallCollider;
 
     // Start is called before the first frame update
     void Start()
     {
+        m_Colliders = GetComponentsInChildren<MinipotCollider>();
+
         m_CurrentlyColliding = new bool[m_Colliders.Length];
         m_BallCollider = GameObject.FindGameObjectWithTag("Player").GetComponent<MinipotBallCollider>();
     }
@@ -27,21 +29,17 @@ public class CollisionManager : MonoBehaviour
             {
                 if (m_CurrentlyColliding[i])
                 {
-                    if (!collider.m_IsTrigger)
-                    {
-                        m_BallCollider.BounceOff(collider);
-                    }
                     m_BallCollider.m_OnCollisionStay.Invoke();
                     collider.m_OnCollisionStay.Invoke();
-                } else
+                }
+                else
                 {
                     m_CurrentlyColliding[i] = true;
                     m_BallCollider.m_OnCollisionEnter.Invoke();
                     collider.m_OnCollisionEnter.Invoke();
                 }
             }
-
-            if (m_CurrentlyColliding[i])
+            else if (m_CurrentlyColliding[i])
             {
                 m_CurrentlyColliding[i] = false;
                 m_BallCollider.m_OnCollisionExit.Invoke();

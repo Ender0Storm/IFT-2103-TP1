@@ -139,18 +139,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e568ba98041c34b428ad66359074cc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_colliders:
-  - {fileID: 8671332668360713005}
-  - {fileID: 6106098118186777805}
-  - {fileID: 4193649002971870332}
-  - {fileID: 6647838320684915055}
-  - {fileID: 41500414020299757}
-  - {fileID: 8575641367564906588}
-  - {fileID: 8192508443150500613}
-  - {fileID: 6071336604610601263}
-  - {fileID: 6908558186045607599}
-  - {fileID: 3142227405330689080}
-  - {fileID: 9040667368718750727}
 --- !u!1 &2068414606461984365
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,6 +236,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsTrigger: 0
+  m_OnCollisionEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnCollisionStay:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnCollisionExit:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Scale: {x: 1, y: 1, z: 1}
 --- !u!1 &2837611271501589929
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,6 +343,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsTrigger: 0
+  m_OnCollisionEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnCollisionStay:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnCollisionExit:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Scale: {x: 0.02, y: 0.01, z: 0.04}
 --- !u!1 &4926550164622544110
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,6 +450,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsTrigger: 0
+  m_OnCollisionEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnCollisionStay:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnCollisionExit:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Scale: {x: 1, y: 1, z: 1}
 --- !u!1 &5355190224988099007
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,6 +557,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsTrigger: 0
+  m_OnCollisionEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnCollisionStay:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnCollisionExit:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Scale: {x: 1, y: 1, z: 1}
 --- !u!1 &5782547862035170422
 GameObject:
   m_ObjectHideFlags: 0
@@ -636,6 +664,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsTrigger: 0
+  m_OnCollisionEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnCollisionStay:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnCollisionExit:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Scale: {x: 1, y: 1, z: 1}
 --- !u!1 &5891100901204654038
 GameObject:
   m_ObjectHideFlags: 0
@@ -733,6 +771,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsTrigger: 0
+  m_OnCollisionEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnCollisionStay:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnCollisionExit:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Scale: {x: 1, y: 1, z: 1}
 --- !u!1 &6647847455488000600
 GameObject:
   m_ObjectHideFlags: 0
@@ -830,6 +878,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsTrigger: 0
+  m_OnCollisionEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnCollisionStay:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnCollisionExit:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Scale: {x: 1, y: 1, z: 1}
 --- !u!1 &6854459819680075044
 GameObject:
   m_ObjectHideFlags: 0
@@ -927,6 +985,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsTrigger: 0
+  m_OnCollisionEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnCollisionStay:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnCollisionExit:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Scale: {x: 1, y: 1, z: 1}
 --- !u!1 &7130395221129408232
 GameObject:
   m_ObjectHideFlags: 0
@@ -1024,6 +1092,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsTrigger: 1
+  m_OnCollisionEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnCollisionStay:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnCollisionExit:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Scale: {x: 0.02, y: 0.01, z: 0.04}
 --- !u!1 &8155008383903538891
 GameObject:
   m_ObjectHideFlags: 0
@@ -1121,6 +1199,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsTrigger: 0
+  m_OnCollisionEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnCollisionStay:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnCollisionExit:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Scale: {x: 1, y: 1, z: 1}
 --- !u!1 &8732854409960829164
 GameObject:
   m_ObjectHideFlags: 0
@@ -1218,3 +1306,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsTrigger: 0
+  m_OnCollisionEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnCollisionStay:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnCollisionExit:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Scale: {x: 1, y: 1, z: 1}

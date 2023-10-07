@@ -37,4 +37,19 @@ public class MinipotRigidbody : MonoBehaviour
 
         m_Forces.Clear();
     }
+
+    //public void LogEnter()
+    //{
+    //    print("Entered!");
+    //}
+
+    //public void LogStay()
+    //{
+    //    print("Staying!");
+    //}
+
+    //public void LogExit()
+    //{
+    //    print("Exited!");
+    //}
 }
