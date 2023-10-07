@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.UIElements;
 
 public class Test : MonoBehaviour
 {
@@ -14,6 +16,7 @@ public class Test : MonoBehaviour
     {
         cameraObject = GameObject.Find("main_camera");
     }
+    
     void Update()
     {
         if (Input.GetKeyDown("space"))
@@ -25,6 +28,8 @@ public class Test : MonoBehaviour
             Debug.Log((Time.time - startTime).ToString("00:00.00"));
             print((Time.time - startTime).ToString("00:00.00"));
             transform.Translate(cameraObject.transform.forward * (Time.time - startTime) * 1000 * Time.deltaTime);
+            print(ScoreManager.instance.score);
+            ScoreManager.instance.AddShot();
         }
 
         if (Input.GetKeyDown("z"))
@@ -46,17 +51,17 @@ public class Test : MonoBehaviour
         /*if (Input.GetKeyDown ("Horizontal"))
             timer = Time.time;
  
-        if (Input.GetKeyDown() ("Horizontal") && Time.time - timer > windUpTime)
-        {*
-            //float frameCount = timer;
-            //int tiime = Mathf.FloorToInt(timer);
-            //int current = (int)frameCount;
-            //transform.Translate(cameraObject.transform.forward * 100 * Time.deltaTime);
-        //}
+        if (Input.GetKeyDown("Horizontal") && Time.time - timer > windUpTime)
+        {
+            float frameCount = timer;
+            int tiime = Mathf.FloorToInt(timer);
+            int current = (int)frameCount;
+            transform.Translate(cameraObject.transform.forward * 100 * Time.deltaTime);
+        }*/
         
-        /*if (Input.GetKeyDown("space"))
+        if (Input.GetKeyDown("space"))
         {
             transform.Translate(cameraObject.transform.forward * speed * Time.deltaTime);
-        }*/
+        }
     }
 }
