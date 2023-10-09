@@ -5,6 +5,7 @@ using UnityEngine;
 public class MinipotBoxCollider : MinipotCollider
 {
     public Vector3 m_Scale;
+    [HideInInspector]
     public Bounds m_CollisionBox;
 
     void Start()
