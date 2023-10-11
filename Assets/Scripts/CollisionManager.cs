@@ -100,6 +100,7 @@ public class CollisionManager : MonoBehaviour
             {
 
                 float[] hits = new float[6];
+                for (int i = 0; i < hits.Length; i++) { hits[i] = float.MaxValue; }
                 Vector3 hit;
 
                 if (V.x != 0)
@@ -109,14 +110,12 @@ public class CollisionManager : MonoBehaviour
                     if (alpha >= 0 &&
                         hit.y <= extendedBounds.max.y && hit.y >= extendedBounds.min.y &&
                         hit.z <= extendedBounds.max.z && hit.z >= extendedBounds.min.z) { hits[0] = alpha; }
-                    else { hits[0] = float.MaxValue; }
 
                     alpha = (extendedBounds.min.x - P.x) / V.x;
                     hit = P + alpha * V;
                     if (alpha >= 0 &&
                         hit.y <= extendedBounds.max.y && hit.y >= extendedBounds.min.y &&
                         hit.z <= extendedBounds.max.z && hit.z >= extendedBounds.min.z) { hits[1] = alpha; }
-                    else { hits[1] = float.MaxValue; }
                 }
                 if (V.y != 0)
                 {
@@ -125,14 +124,12 @@ public class CollisionManager : MonoBehaviour
                     if (alpha >= 0 &&
                         hit.x <= extendedBounds.max.x && hit.x >= extendedBounds.min.x &&
                         hit.z <= extendedBounds.max.z && hit.z >= extendedBounds.min.z) { hits[2] = alpha; }
-                    else { hits[2] = float.MaxValue; }
 
                     alpha = (extendedBounds.min.y - P.y) / V.y;
                     hit = P + alpha * V;
                     if (alpha >= 0 &&
                         hit.x <= extendedBounds.max.x && hit.x >= extendedBounds.min.x &&
                         hit.z <= extendedBounds.max.z && hit.z >= extendedBounds.min.z) { hits[3] = alpha; }
-                    else { hits[3] = float.MaxValue; }
                 }
                 if (V.z != 0)
                 {
@@ -141,14 +138,12 @@ public class CollisionManager : MonoBehaviour
                     if (alpha >= 0 &&
                         hit.x <= extendedBounds.max.x && hit.x >= extendedBounds.min.x &&
                         hit.y <= extendedBounds.max.y && hit.y >= extendedBounds.min.y) { hits[4] = alpha; }
-                    else { hits[4] = float.MaxValue; }
 
                     alpha = (extendedBounds.min.z - P.z) / V.z;
                     hit = P + alpha * V;
                     if (alpha >= 0 &&
                         hit.x <= extendedBounds.max.x && hit.x >= extendedBounds.min.x &&
                         hit.y <= extendedBounds.max.y && hit.y >= extendedBounds.min.y) { hits[5] = alpha; }
-                    else { hits[5] = float.MaxValue; }
                 }
 
                 alpha = Mathf.Min(hits);
@@ -202,9 +197,9 @@ public class CollisionManager : MonoBehaviour
                 ballImpactPos = P + alpha * V;
             }
 
-            impactNormal = (ballImpactPos - bounds.ClosestPoint(ballImpactPos)).normalized;
+            Vector3 closestPointPos = boxCollider.BoundingBoxToWorld(bounds.ClosestPoint(ballImpactPos));
             ballImpactPos = boxCollider.BoundingBoxToWorld(ballImpactPos);
-            impactNormal = boxCollider.BoundingBoxToWorld(impactNormal);
+            impactNormal = (ballImpactPos - closestPointPos).normalized;
         }
 
         m_BallRB.BallBounceOff(impactNormal, ballImpactPos);
