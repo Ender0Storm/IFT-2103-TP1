@@ -1125,7 +1125,7 @@ MonoBehaviour:
   m_OnCollisionExit:
     m_PersistentCalls:
       m_Calls: []
-  m_Scale: {x: 0.02, y: 0.01, z: 0.04}
+  m_Scale: {x: 0.02, y: 0.02, z: 0.02}
   m_CollisionBox:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}

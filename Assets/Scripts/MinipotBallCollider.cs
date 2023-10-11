@@ -20,9 +20,9 @@ public class MinipotBallCollider : MinipotCollider
         {
             MinipotBoxCollider boxCollider = (MinipotBoxCollider)other;
             // On applique l'inverse de la rotation de la boite sur la position de la sphère pour simplifier le calcule (un seul point à bouger au lieu de la boite au complet)
-            Vector3 rotatedPos = Quaternion.Inverse(boxCollider.transform.localRotation) * (transform.position - boxCollider.transform.position) + boxCollider.transform.position;
+            Vector3 rotatedPos = boxCollider.WorldToBoundingBox(transform.position);
 
-            return (boxCollider.m_CollisionBox.ClosestPoint(rotatedPos) - rotatedPos).sqrMagnitude <= Mathf.Pow(m_Scale * transform.localScale.x / 2, 2);
+            return boxCollider.m_CollisionBox.SqrDistance(rotatedPos) <= Mathf.Pow(m_Scale * transform.localScale.x / 2, 2);
         }
 
         return false;

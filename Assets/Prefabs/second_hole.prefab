@@ -1055,6 +1055,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1695396861342903491}
+  - component: {fileID: 8527257886667462508}
   m_Layer: 0
   m_Name: second_hole
   m_TagString: Untagged
@@ -1098,6 +1099,18 @@ Transform:
   - {fileID: 7210978981282660675}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8527257886667462508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4733187127619503449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e568ba98041c34b428ad66359074cc7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4888419428208999944
 GameObject:
   m_ObjectHideFlags: 0
@@ -2250,7 +2263,7 @@ MonoBehaviour:
   m_OnCollisionExit:
     m_PersistentCalls:
       m_Calls: []
-  m_Scale: {x: 0.02, y: 0.01, z: 0.04}
+  m_Scale: {x: 0.02, y: 0.02, z: 0.02}
   m_CollisionBox:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
