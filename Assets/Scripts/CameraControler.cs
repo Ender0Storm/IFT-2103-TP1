@@ -3,29 +3,51 @@ using Vector3 = UnityEngine.Vector3;
 
 public class CameraControler : MonoBehaviour
 {
-    public float speedH = 5.0f;
-    public float speedV = 5.0f;
-
-    private float yaw = 0.0f;
-    private float pitch = 0.0f;
-    
-    public Transform targetObject;
+    public Transform ball;
     private Vector3 initalOffset;
     private Vector3 cameraPosition;
+    private bool movingRight = false;
+    private bool movingLeft = false;
+    [Range(1,100)]
+    public int rotation_speed = 25;
+    
     
     void Start()
     {
-        targetObject = GameObject.Find("ball").transform;
-        initalOffset = transform.position - targetObject.position;
+        ball = GameObject.Find("ball").transform;
     }
 
     void Update () {
-        cameraPosition = targetObject.position + initalOffset;
-        transform.position = cameraPosition;
-        
-        yaw += speedH * Input.GetAxis("Mouse X");
-        pitch -= speedV * Input.GetAxis("Mouse Y");
+        if (Input.GetKeyDown("a"))
+        {
+            movingRight = true;
+            movingLeft = false;
+        }
 
-        transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
+        if (Input.GetKeyUp("a"))
+        {
+            movingRight = false;
+        }
+        
+        if (Input.GetKeyUp("d"))
+        {
+            movingLeft = false;
+        }
+
+        if (Input.GetKeyDown("d"))
+        {
+            movingRight = false;
+            movingLeft = true;
+        }
+
+        if (movingRight)
+        {
+            ball.transform.Rotate(Vector3.up * rotation_speed * Time.deltaTime);
+        }
+
+        if (movingLeft)
+        {
+            ball.transform.Rotate(Vector3.down * rotation_speed * Time.deltaTime);
+        }
     }
 }

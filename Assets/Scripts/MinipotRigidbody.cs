@@ -28,6 +28,7 @@ public class MinipotRigidbody : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        //print(m_Velocity);
         m_Forces.Add(new Vector3(0, -m_Gravity * m_Mass, 0));
 
         m_Acceleration = new Vector3();
@@ -48,16 +49,26 @@ public class MinipotRigidbody : MonoBehaviour
 
     public void LogEnter()
     {
-        print("Entered!");
+        //print("Entered!");
     }
 
     public void LogStay()
     {
-        print("Staying!");
+        //print("Staying!");
     }
 
     public void LogExit()
     {
-        print("Exited!");
+        //print("Exited!");
+    }
+
+    public void setVelocity(Vector3 velocity)
+    {
+        m_Velocity = velocity;
+    }
+
+    public Vector3 getVelocity()
+    {
+        return m_Velocity;
     }
 }
