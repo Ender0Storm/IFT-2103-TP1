@@ -38,10 +38,11 @@ public class MinipotRigidbody : MonoBehaviour
     {
         //print(m_Velocity);
         m_Forces.Add(new Vector3(0, -m_Gravity * m_Mass, 0));
-        if (m_IsGrounded)
+        if (m_IsGrounded && Mathf.Abs(m_Velocity.y) < 0.1)
         {
             m_Forces.Add(m_GroundedNormal * m_Gravity * m_Mass);
             m_Forces.Add((m_Velocity - Vector3.Project(m_Velocity, m_GroundedNormal)) * -m_FrictionRatio);
+            m_IsGrounded = false;
         }
 
         m_Acceleration = new Vector3();
@@ -53,7 +54,7 @@ public class MinipotRigidbody : MonoBehaviour
 
         m_Forces.Clear();
         
-        print(m_Velocity);
+        //print(m_Velocity);
         
         if (m_Velocity == Vector3.zero)
         {

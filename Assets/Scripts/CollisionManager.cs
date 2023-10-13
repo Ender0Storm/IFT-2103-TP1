@@ -61,7 +61,6 @@ public class CollisionManager : MonoBehaviour
                 m_BallRB.m_IsGrounded = true;
                 break;
             }
-            if (i == m_CurrentlyColliding.Length - 1) { m_BallRB.m_IsGrounded = false; }
         }
     }
 
