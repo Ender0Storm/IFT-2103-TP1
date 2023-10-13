@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +14,9 @@ public class MinipotRigidbody : MonoBehaviour
     private List<Vector3> m_Forces;
     [NonSerialized]
     public Vector3 m_OldPosition;
+    ResetPosition resetPosition = ResetPosition.instance;
+
+    private Vector3 position = new Vector3(0,0,0);
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +41,14 @@ public class MinipotRigidbody : MonoBehaviour
         m_Velocity += m_Acceleration * Time.fixedDeltaTime;
 
         m_Forces.Clear();
+        
+        print(m_Velocity);
+        
+        if (m_Velocity == Vector3.zero)
+        {
+            print("position zero");
+            position = transform.position;
+        }
     }
 
     public void BallBounceOff(Vector3 normal, Vector3 ballImpactPos)
@@ -49,17 +59,17 @@ public class MinipotRigidbody : MonoBehaviour
 
     public void LogEnter()
     {
-        //print("Entered!");
+        print("Entered!");
     }
 
     public void LogStay()
     {
-        //print("Staying!");
+        print("Staying!");
     }
 
     public void LogExit()
     {
-        //print("Exited!");
+        //resetPosition.updatePos();
     }
 
     public void setVelocity(Vector3 velocity)
@@ -67,8 +77,13 @@ public class MinipotRigidbody : MonoBehaviour
         m_Velocity = velocity;
     }
 
-    public Vector3 getVelocity()
+    public void addForce(Vector3 force) 
     {
-        return m_Velocity;
+        m_Forces.Add(force);
+    }
+
+    public Vector3 getPosition()
+    {
+        return position;
     }
 }

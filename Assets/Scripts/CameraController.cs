@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
-public class CameraControler : MonoBehaviour
+public class CameraController : MonoBehaviour
 {
     public Transform ball;
     private Vector3 initalOffset;
     private Vector3 cameraPosition;
-    private bool movingRight = false;
-    private bool movingLeft = false;
+    private bool movingRight;
+    private bool movingLeft;
     [Range(1,100)]
-    public int rotation_speed = 25;
+    public int rotation_speed = 35;
     
     
     void Start()

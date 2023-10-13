@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CollisionManager : MonoBehaviour
@@ -121,6 +119,7 @@ public class CollisionManager : MonoBehaviour
                 {
                     alpha = (extendedBounds.max.y - P.y) / V.y;
                     hit = P + alpha * V;
+                    m_BallRB.addForce(collider.transform.up);
                     if (alpha >= 0 &&
                         hit.x <= extendedBounds.max.x && hit.x >= extendedBounds.min.x &&
                         hit.z <= extendedBounds.max.z && hit.z >= extendedBounds.min.z) { hits[2] = alpha; }

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    public static ScoreManager instance;
+    public static ScoreManager Instance;
 
     public Text scoreText;
     public Text scoreHole1;
@@ -17,7 +17,7 @@ public class ScoreManager : MonoBehaviour
     
     private void Awake()
     {
-        instance = this;
+        Instance = this;
     }
     
     void Start()
