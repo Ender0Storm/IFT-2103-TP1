@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class CollisionManager : MonoBehaviour
 {
-    private bool[] m_CurrentlyColliding;
 
     private MinipotCollider[] m_Colliders;
+    private bool[] m_CurrentlyColliding;
+
     private MinipotBallCollider m_BallCollider;
     private MinipotRigidbody m_BallRB;
 
@@ -36,7 +37,10 @@ public class CollisionManager : MonoBehaviour
                 {
                     m_CurrentlyColliding[i] = true;
 
-                    if (!collider.m_IsTrigger) { BounceBallOf(collider); }
+                    if (!collider.m_IsTrigger)
+                    {
+                        BounceBallOf(collider);
+                    }
 
                     m_BallCollider.m_OnCollisionEnter.Invoke();
                     collider.m_OnCollisionEnter.Invoke();
@@ -48,6 +52,16 @@ public class CollisionManager : MonoBehaviour
                 m_BallCollider.m_OnCollisionExit.Invoke();
                 collider.m_OnCollisionExit.Invoke();
             }
+        }
+
+        for (int i = 0; i < m_CurrentlyColliding.Length; i++)
+        {
+            if (m_CurrentlyColliding[i] && !m_Colliders[i].m_IsTrigger)
+            {
+                m_BallRB.m_IsGrounded = true;
+                break;
+            }
+            if (i == m_CurrentlyColliding.Length - 1) { m_BallRB.m_IsGrounded = false; }
         }
     }
 
@@ -199,6 +213,7 @@ public class CollisionManager : MonoBehaviour
             Vector3 closestPointPos = boxCollider.BoundingBoxToWorld(bounds.ClosestPoint(ballImpactPos));
             ballImpactPos = boxCollider.BoundingBoxToWorld(ballImpactPos);
             impactNormal = (ballImpactPos - closestPointPos).normalized;
+            m_BallRB.m_GroundedNormal = impactNormal;
         }
 
         m_BallRB.BallBounceOff(impactNormal, ballImpactPos);

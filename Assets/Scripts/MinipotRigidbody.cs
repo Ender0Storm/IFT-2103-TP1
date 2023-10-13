@@ -7,8 +7,14 @@ public class MinipotRigidbody : MonoBehaviour
     public float m_Mass;
     public float m_Gravity;
     [Range(0, 1)]
-    public float m_Bounciness;
+    public float m_BouncinessRatio;
+    [Range(0, 1)]
+    public float m_FrictionRatio;
 
+    [NonSerialized]
+    public bool m_IsGrounded;
+    [NonSerialized]
+    public Vector3 m_GroundedNormal;
     private Vector3 m_Velocity;
     private Vector3 m_Acceleration;
     private List<Vector3> m_Forces;
@@ -32,6 +38,11 @@ public class MinipotRigidbody : MonoBehaviour
     {
         //print(m_Velocity);
         m_Forces.Add(new Vector3(0, -m_Gravity * m_Mass, 0));
+        if (m_IsGrounded)
+        {
+            m_Forces.Add(m_GroundedNormal * m_Gravity * m_Mass);
+            m_Forces.Add((m_Velocity - Vector3.Project(m_Velocity, m_GroundedNormal)) * -m_FrictionRatio);
+        }
 
         m_Acceleration = new Vector3();
         foreach (Vector3 force in m_Forces) { m_Acceleration += force / m_Mass; }
@@ -46,15 +57,16 @@ public class MinipotRigidbody : MonoBehaviour
         
         if (m_Velocity == Vector3.zero)
         {
-            print("position zero");
+            //print("position zero");
             position = transform.position;
         }
     }
 
     public void BallBounceOff(Vector3 normal, Vector3 ballImpactPos)
     {
-        m_Velocity = m_Bounciness * (m_Velocity - 2 * Vector3.Dot(normal, m_Velocity) * normal);
-        transform.position = ballImpactPos + (transform.position - ballImpactPos).magnitude * m_Velocity.normalized;
+        m_Velocity = m_BouncinessRatio * (m_Velocity - 2 * Vector3.Dot(normal, m_Velocity) * normal);
+        if (m_Velocity.y < 0.5 && m_Velocity.y > 0) { m_Velocity.y = 0; }
+        transform.position = ballImpactPos + (transform.position - ballImpactPos).magnitude * m_BouncinessRatio * m_Velocity.normalized;
     }
 
     public void LogEnter()
@@ -69,7 +81,7 @@ public class MinipotRigidbody : MonoBehaviour
 
     public void LogExit()
     {
-        //resetPosition.updatePos();
+        print("Exited!");
     }
 
     public void setVelocity(Vector3 velocity)
