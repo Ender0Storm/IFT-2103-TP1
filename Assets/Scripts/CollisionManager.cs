@@ -4,6 +4,7 @@ public class CollisionManager : MonoBehaviour
 {
 
     private MinipotCollider[] m_Colliders;
+    private Vector3[] m_CollisionNormals;
     private bool[] m_CurrentlyColliding;
 
     private MinipotBallCollider m_BallCollider;
@@ -15,6 +16,13 @@ public class CollisionManager : MonoBehaviour
         m_Colliders = GetComponentsInChildren<MinipotCollider>();
 
         m_CurrentlyColliding = new bool[m_Colliders.Length];
+        m_CollisionNormals = new Vector3[m_Colliders.Length];
+        for (int i = 0; i < m_Colliders.Length; i++)
+        {
+            m_CurrentlyColliding[i] = false;
+            m_CollisionNormals[i] = Vector3.zero;
+        }
+
         m_BallCollider = GameObject.FindGameObjectWithTag("Player").GetComponent<MinipotBallCollider>();
         m_BallRB = GameObject.FindGameObjectWithTag("Player").GetComponent<MinipotRigidbody>();
     }
@@ -39,7 +47,7 @@ public class CollisionManager : MonoBehaviour
 
                     if (!collider.m_IsTrigger)
                     {
-                        BounceBallOf(collider);
+                        BounceBallOf(i);
                     }
 
                     m_BallCollider.m_OnCollisionEnter.Invoke();
@@ -49,23 +57,18 @@ public class CollisionManager : MonoBehaviour
             else if (m_CurrentlyColliding[i])
             {
                 m_CurrentlyColliding[i] = false;
+                m_CollisionNormals[i] = Vector3.zero;
                 m_BallCollider.m_OnCollisionExit.Invoke();
                 collider.m_OnCollisionExit.Invoke();
             }
         }
 
-        for (int i = 0; i < m_CurrentlyColliding.Length; i++)
-        {
-            if (m_CurrentlyColliding[i] && !m_Colliders[i].m_IsTrigger)
-            {
-                m_BallRB.m_IsGrounded = true;
-                break;
-            }
-        }
+        m_BallRB.UpdateNormals(m_CollisionNormals);
     }
 
-    private void BounceBallOf(MinipotCollider collider)
+    private void BounceBallOf(int colliderIndex)
     {
+        MinipotCollider collider = m_Colliders[colliderIndex];
         Vector3 ballImpactPos = Vector3.up;
         Vector3 impactNormal = Vector3.up;
 
@@ -85,12 +88,12 @@ public class CollisionManager : MonoBehaviour
         else if (collider is MinipotBoxCollider)
         {
             MinipotBoxCollider boxCollider = (MinipotBoxCollider)collider;
-            Bounds bounds = boxCollider.m_CollisionBox;
-            Bounds extendedBounds = new Bounds(bounds.center,
-                                               bounds.size + m_BallCollider.transform.localScale * m_BallCollider.m_Scale);
+            MinipotBounds bounds = boxCollider.m_CollisionBox;
+            MinipotBounds extendedBounds = new MinipotBounds(bounds.center,
+                                                             bounds.size + m_BallCollider.transform.localScale * m_BallCollider.m_Scale);
 
-            Vector3 rotatedPos = boxCollider.WorldToBoundingBox(m_BallRB.transform.position);
-            Vector3 oldRotatedPos = boxCollider.WorldToBoundingBox(m_BallRB.m_OldPosition);
+            Vector3 rotatedPos = boxCollider.WorldToBounds(m_BallRB.transform.position);
+            Vector3 oldRotatedPos = boxCollider.WorldToBounds(m_BallRB.m_OldPosition);
 
             Vector3 P = oldRotatedPos;
             Vector3 V = rotatedPos - P;
@@ -109,7 +112,6 @@ public class CollisionManager : MonoBehaviour
             }
             else
             {
-
                 float[] hits = new float[6];
                 for (int i = 0; i < hits.Length; i++) { hits[i] = float.MaxValue; }
                 Vector3 hit;
@@ -132,7 +134,6 @@ public class CollisionManager : MonoBehaviour
                 {
                     alpha = (extendedBounds.max.y - P.y) / V.y;
                     hit = P + alpha * V;
-                    m_BallRB.addForce(collider.transform.up);
                     if (alpha >= 0 &&
                         hit.x <= extendedBounds.max.x && hit.x >= extendedBounds.min.x &&
                         hit.z <= extendedBounds.max.z && hit.z >= extendedBounds.min.z) { hits[2] = alpha; }
@@ -209,21 +210,23 @@ public class CollisionManager : MonoBehaviour
                 ballImpactPos = P + alpha * V;
             }
 
-            Vector3 closestPointPos = boxCollider.BoundingBoxToWorld(bounds.ClosestPoint(ballImpactPos));
-            ballImpactPos = boxCollider.BoundingBoxToWorld(ballImpactPos);
+            Vector3 closestPointPos = boxCollider.BoundsToWorld(bounds.ClosestPoint(ballImpactPos));
+            ballImpactPos = boxCollider.BoundsToWorld(ballImpactPos);
             impactNormal = (ballImpactPos - closestPointPos).normalized;
-            m_BallRB.m_GroundedNormal = impactNormal;
         }
 
+        m_CollisionNormals[colliderIndex] = impactNormal;
+        //print("Impact with : " + collider.name + " ImpactPos-" + ballImpactPos.ToString("F4") + "impactNormal-" + impactNormal.ToString("F4"));
         m_BallRB.BallBounceOff(impactNormal, ballImpactPos);
     }
 
     private float LineBallIntersectAlpha(Vector3 linePoint, Vector3 lineVector, Vector3 ballCenter, float ballRadius)
     {
         float a = lineVector.sqrMagnitude;
+        if (a == 0) { return 0; }
         float b = 2 * (Vector3.Dot(linePoint, lineVector) - Vector3.Dot(ballCenter, lineVector));
         float c = ballCenter.sqrMagnitude + linePoint.sqrMagnitude - 2 * Vector3.Dot(ballCenter, linePoint) - Mathf.Pow(ballRadius, 2);
-        float d = Mathf.Pow(b, 2) - 4 * a * c;
+        float d = Mathf.Clamp(Mathf.Pow(b, 2) - 4 * a * c, 0, float.MaxValue);
 
         float e = Mathf.Sqrt(d);
         float f = 2 * a;

@@ -14,12 +14,12 @@ public class ResetPosition : MonoBehaviour
     private MinipotRigidbody minipotRigidbody;
     void Start()
     {
-        Vector3 position = minipotRigidbody.getPosition();
+        Vector3 position = minipotRigidbody.GetPosition();
         ball.transform.position = position;
     }
     public void updatePos()
     {
-        Vector3 position = minipotRigidbody.getPosition();
+        Vector3 position = minipotRigidbody.GetPosition();
         ball.transform.position = position;
     }
 }
