@@ -57,6 +57,7 @@ public class MinipotRigidbody : MonoBehaviour
         if (m_Velocity.y < 0.5 && m_Velocity.y > 0 && m_Velocity.sqrMagnitude < 0.25) { m_Velocity.y = 0; }
 
         transform.position = ballImpactPos + (transform.position - ballImpactPos).magnitude * m_Bounciness * m_Velocity.normalized;
+        m_OldPosition = ballImpactPos;
     }
 
     public void UpdateNormals(Vector3[] normals)
