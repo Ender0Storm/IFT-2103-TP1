@@ -21,8 +21,6 @@ public class MinipotRigidbody : MonoBehaviour
     [NonSerialized]
     public Vector3 m_OldPosition;
 
-    private Vector3 position;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -50,11 +48,6 @@ public class MinipotRigidbody : MonoBehaviour
         m_Velocity += m_Acceleration * Time.fixedDeltaTime;
 
         m_Forces.Clear();
-        
-        if (m_Velocity == Vector3.zero)
-        {
-            position = transform.position;
-        }
     }
 
     public void BallBounceOff(Vector3 normal, Vector3 ballImpactPos)
@@ -89,11 +82,6 @@ public class MinipotRigidbody : MonoBehaviour
         m_Forces.Add(force);
     }
 
-    public Vector3 GetPosition()
-    {
-        return position;
-    }
-
     public void LogEnter()
     {
         print("Entered!");
@@ -107,21 +95,5 @@ public class MinipotRigidbody : MonoBehaviour
     public void LogExit()
     {
         print("Exited!");
-    }
-
-    public void ResetPosition()
-    {
-        m_Velocity = Vector3.zero;
-        m_Acceleration = Vector3.zero;
-        m_Forces.Clear();
-        BallController.Instance.ResetPosition();
-    }
-
-    public void ChangePosition()
-    {
-        m_Velocity = Vector3.zero;
-        m_Acceleration = Vector3.zero;
-        m_Forces.Clear();
-        BallController.Instance.ChangeHole();
     }
 }

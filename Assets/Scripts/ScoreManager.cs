@@ -4,29 +4,21 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    public static ScoreManager Instance;
-
     public Text scoreText;
-    public Text scoreHole1;
-    public Text scoreHole2;
-    public Text scoreHole3;
-    public Text total;
-    
+    public Text holeText;
 
+    public GameObject[] holePrefabs;
+    private int holeNumber;
+    private GameObject currentHole;
     private double _score;
-    
-    private void Awake()
-    {
-        Instance = this;
-    }
     
     void Start()
     {
         scoreText.text = "Shots : " + _score;
-        scoreHole1.text = "1       ";
-        scoreHole2.text = "2       ";
-        scoreHole3.text = "3       ";
-        total.text = "Total   ";
+
+        currentHole = Instantiate(holePrefabs[0]);
+        holeNumber = 1;
+        holeText.text = "Hole " + holeNumber;
     }
 
     public void AddShot()
@@ -35,32 +27,18 @@ public class ScoreManager : MonoBehaviour
         scoreText.text = "Shots : " + _score;
     }
 
-    public void UpdateHoleScore(int hole)
+    public void ChangeHole()
     {
-        switch (hole)
+        if (holeNumber == holePrefabs.Length)
         {
-            case 1:
-                scoreHole1.text = "1       " + _score;
-                break;
-            case 2:
-                scoreHole2.text = "2       " + _score;
-                break;
-            case 3:
-                scoreHole3.text = "3       " + _score;
-                break;
-            default:
-                total.text = "Total   " + _score;
-                break;
+            // TODO: End condition
         }
-        _score = 0;
-    }
-
-    public void ResetScore()
-    {
-        _score = 0;
-        scoreHole1.text = "1       ";
-        scoreHole2.text = "2       ";
-        scoreHole3.text = "3       ";
-        total.text = "Total   ";
+        else
+        {
+            Destroy(currentHole);
+            currentHole = Instantiate(holePrefabs[holeNumber]);
+            holeNumber++;
+            holeText.text = "Hole " + holeNumber;
+        }
     }
 }
