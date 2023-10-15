@@ -9,7 +9,10 @@ public class CameraController : MonoBehaviour
     private bool movingRight;
     private bool movingLeft;
     [Range(1,100)]
-    public int rotation_speed = 35;
+    public int rotation_speed;
+    private float ratio;
+    public float maxRatio;
+    public float speedUpRatio;
     
     
     void Start()
@@ -22,6 +25,7 @@ public class CameraController : MonoBehaviour
         {
             movingRight = true;
             movingLeft = false;
+            ratio = 1;
         }
 
         if (Input.GetKeyUp("a"))
@@ -38,16 +42,21 @@ public class CameraController : MonoBehaviour
         {
             movingRight = false;
             movingLeft = true;
+            ratio = 1;
         }
 
         if (movingRight)
         {
-            ball.transform.Rotate(Vector3.up * rotation_speed * Time.deltaTime);
+            ball.transform.Rotate(Vector3.up * rotation_speed * Time.deltaTime * ratio);
+            ratio += Time.deltaTime * speedUpRatio;
+            ratio = Mathf.Clamp(ratio, 1, maxRatio);
         }
 
         if (movingLeft)
         {
-            ball.transform.Rotate(Vector3.down * rotation_speed * Time.deltaTime);
+            ball.transform.Rotate(Vector3.down * rotation_speed * Time.deltaTime * ratio);
+            ratio += Time.deltaTime * speedUpRatio;
+            ratio = Mathf.Clamp(ratio, 1, maxRatio);
         }
     }
 }
