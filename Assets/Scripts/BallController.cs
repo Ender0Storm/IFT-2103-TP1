@@ -9,9 +9,10 @@ public class BallController : MonoBehaviour
     public ScoreManager scoreManager;
     public GameObject cameraObject;
     public MinipotRigidbody ballRB;
+    public PowerManager powerManager ;
     private bool isPlayerTurn;
     private bool pressedDuringTurn;
-    private bool gameFinished;
+    public bool gameFinished;
     
     private float holdTime;
     private float immobileTime;
@@ -44,8 +45,15 @@ public class BallController : MonoBehaviour
         if (Input.GetKeyDown("space") && isPlayerTurn && !gameFinished)
         {
             holdTime = 0;
-            // TODO: Show ball strength
+            
+            powerManager.SetPower(holdTime);
             pressedDuringTurn = true;
+        }
+
+        if (pressedDuringTurn)
+        {
+            print("lolololo");
+            powerManager.SetPower(holdTime);
         }
 
         if (Input.GetKeyUp("space") && isPlayerTurn && pressedDuringTurn && !gameFinished)
@@ -57,6 +65,7 @@ public class BallController : MonoBehaviour
             var directionZ = cameraObject.transform.forward.z;
             ballRB.SetVelocity(new Vector3(directionX * holdTime, 0, directionZ * holdTime));
             holdTime = 0;
+            powerManager.SetPower(0);
             scoreManager.AddShot();
             isPlayerTurn = false;
             pressedDuringTurn = false;
@@ -85,7 +94,6 @@ public class BallController : MonoBehaviour
     {
         lastPosition.y += 0.1f;
         transform.position = lastPosition;
-        transform.rotation = Quaternion.Euler(0,0,0);
         ballRB.m_Velocity = Vector3.zero;
         scoreManager.AddShot();
     }
