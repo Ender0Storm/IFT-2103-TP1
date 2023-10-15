@@ -20,9 +20,8 @@ public class MinipotRigidbody : MonoBehaviour
     private List<Vector3> m_Forces;
     [NonSerialized]
     public Vector3 m_OldPosition;
-    ResetPosition resetPosition = ResetPosition.instance;
 
-    private Vector3 position = new Vector3(0,0,0);
+    private Vector3 position;
 
     // Start is called before the first frame update
     void Start()
@@ -108,5 +107,21 @@ public class MinipotRigidbody : MonoBehaviour
     public void LogExit()
     {
         print("Exited!");
+    }
+
+    public void ResetPosition()
+    {
+        m_Velocity = Vector3.zero;
+        m_Acceleration = Vector3.zero;
+        m_Forces.Clear();
+        BallController.Instance.ResetPosition();
+    }
+
+    public void ChangePosition()
+    {
+        m_Velocity = Vector3.zero;
+        m_Acceleration = Vector3.zero;
+        m_Forces.Clear();
+        BallController.Instance.ChangeHole();
     }
 }
