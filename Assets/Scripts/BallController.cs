@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class BallController : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class BallController : MonoBehaviour
     private bool isPlayerTurn;
     private bool pressedDuringTurn;
     public bool gameFinished;
+    public Text playerTurnText;
     
     private float holdTime;
     private float immobileTime;
@@ -25,16 +27,18 @@ public class BallController : MonoBehaviour
         isPlayerTurn = false;
         pressedDuringTurn = false;
         gameFinished = false;
+        playerTurnText.gameObject.SetActive(false);
     }
     
     void Update()
     {
         if (ballRB.m_Velocity.sqrMagnitude < 0.1)
         {
-            if(immobileTime > 0.5)
+            if(immobileTime > 0.5 && !pressedDuringTurn)
             {
                 ballRB.m_Velocity = Vector3.zero;
                 isPlayerTurn = true;
+                playerTurnText.gameObject.SetActive(true);
             }
         }
         else
@@ -45,14 +49,13 @@ public class BallController : MonoBehaviour
         if (Input.GetKeyDown("space") && isPlayerTurn && !gameFinished)
         {
             holdTime = 0;
-            
+            playerTurnText.gameObject.SetActive(false);
             powerManager.SetPower(holdTime);
             pressedDuringTurn = true;
         }
 
         if (pressedDuringTurn)
         {
-            print("lolololo");
             powerManager.SetPower(holdTime);
         }
 
@@ -78,6 +81,11 @@ public class BallController : MonoBehaviour
         {
             //SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        if (Input.GetKeyDown("escape"))
+        {
+            Application.Quit();
         }
     }
 
