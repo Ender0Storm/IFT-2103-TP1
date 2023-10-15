@@ -6,11 +6,13 @@ public class ScoreManager : MonoBehaviour
 {
     public Text scoreText;
     public Text holeText;
+    public Text totalScoreText;
 
     public GameObject[] holePrefabs;
     private int holeNumber;
     private GameObject currentHole;
     private double _score;
+    private BallController ballController;
     
     void Start()
     {
@@ -19,6 +21,7 @@ public class ScoreManager : MonoBehaviour
         currentHole = Instantiate(holePrefabs[0]);
         holeNumber = 1;
         holeText.text = "Hole " + holeNumber;
+        totalScoreText.gameObject.SetActive(false);
     }
 
     public void AddShot()
@@ -31,7 +34,12 @@ public class ScoreManager : MonoBehaviour
     {
         if (holeNumber == holePrefabs.Length)
         {
-            // TODO: End condition
+            scoreText.gameObject.SetActive(false);
+            holeText.gameObject.SetActive(false);
+            totalScoreText.text = "Congrats !\nYou finished with a score of " + _score +
+                                  " shots !\n\nPress \"n\" to play again !";
+            totalScoreText.gameObject.SetActive(true);
+            ballController.gameFinished = true;
         }
         else
         {
