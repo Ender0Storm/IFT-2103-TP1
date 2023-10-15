@@ -52,7 +52,6 @@ public class ScoreManager : MonoBehaviour
                 total.text = "Total   " + _score;
                 break;
         }
-
         _score = 0;
     }
 
