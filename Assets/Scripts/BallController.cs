@@ -3,8 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class BallController : MonoBehaviour
 {
-    public static BallController Instance;
-    
     public float velocityCoef;
     public float maxHoldTime;
     
@@ -19,14 +17,10 @@ public class BallController : MonoBehaviour
     private float immobileTime;
 
     private Vector3 lastPosition;
-    
-    private void Awake()
-    {
-        Instance = this;
-    }
 
     void Start()
     {
+        ballRB = GetComponent<MinipotRigidbody>();
         isPlayerTurn = false;
         pressedDuringTurn = false;
         gameFinished = false;
@@ -83,6 +77,7 @@ public class BallController : MonoBehaviour
         scoreManager.ChangeHole();
 
         ballRB.m_Velocity = Vector3.zero;
+        transform.rotation = Quaternion.Euler(0, 0, 0);
         transform.position = Vector3.up;
     }
 
@@ -90,6 +85,7 @@ public class BallController : MonoBehaviour
     {
         lastPosition.y += 0.1f;
         transform.position = lastPosition;
+        transform.rotation = Quaternion.Euler(0,0,0);
         ballRB.m_Velocity = Vector3.zero;
         scoreManager.AddShot();
     }
