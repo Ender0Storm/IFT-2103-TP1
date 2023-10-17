@@ -13,7 +13,6 @@ public class BallController : MonoBehaviour
     public PowerManager powerManager ;
     private bool isPlayerTurn;
     private bool pressedDuringTurn;
-    public bool gameFinished;
     public Text playerTurnText;
     
     private float holdTime;
@@ -26,7 +25,6 @@ public class BallController : MonoBehaviour
         ballRB = GetComponent<MinipotRigidbody>();
         isPlayerTurn = false;
         pressedDuringTurn = false;
-        gameFinished = false;
         playerTurnText.gameObject.SetActive(false);
     }
     
@@ -46,7 +44,7 @@ public class BallController : MonoBehaviour
             immobileTime = 0;
         }
 
-        if (Input.GetKeyDown("space") && isPlayerTurn && !gameFinished)
+        if (Input.GetKeyDown("space") && isPlayerTurn && !scoreManager.gameFinished)
         {
             holdTime = 0;
             playerTurnText.gameObject.SetActive(false);
@@ -59,7 +57,7 @@ public class BallController : MonoBehaviour
             powerManager.SetPower(holdTime);
         }
 
-        if (Input.GetKeyUp("space") && isPlayerTurn && pressedDuringTurn && !gameFinished)
+        if (Input.GetKeyUp("space") && isPlayerTurn && pressedDuringTurn && !scoreManager.gameFinished)
         {
             lastPosition = transform.position;
 
@@ -74,12 +72,16 @@ public class BallController : MonoBehaviour
             pressedDuringTurn = false;
         }
 
+        if (Input.GetKey("escape"))
+        {
+            Application.Quit();
+        }
+
         holdTime += Time.deltaTime;
         immobileTime += Time.deltaTime;
 
-        if (Input.GetKeyDown("n") && !gameFinished)
+        if (Input.GetKeyDown("n") && scoreManager.gameFinished)
         {
-            //SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 

@@ -476,7 +476,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Mass: 1
   m_Gravity: 9.8
-  m_Bounciness: 0.6
+  m_Bounciness: 0.5
   m_FrictionCoefficient: 1
   m_Velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &877326730
@@ -514,13 +514,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7a0bb8b8f99497aa0f5ba04f2c6c444, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocityCoef: 30
+  velocityCoef: 25
   maxHoldTime: 1.5
   scoreManager: {fileID: 1776369977}
   cameraObject: {fileID: 963194225}
   ballRB: {fileID: 0}
   powerManager: {fileID: 1023522824}
-  gameFinished: 0
   playerTurnText: {fileID: 1611034304}
 --- !u!1 &892063877
 GameObject:

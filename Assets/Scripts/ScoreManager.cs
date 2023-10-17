@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 
@@ -12,8 +13,9 @@ public class ScoreManager : MonoBehaviour
     private int holeNumber;
     private GameObject currentHole;
     private double _score;
-    private BallController ballController;
-    
+    [NonSerialized]
+    public bool gameFinished;
+
     void Start()
     {
         scoreText.text = "Shots : " + _score;
@@ -22,6 +24,7 @@ public class ScoreManager : MonoBehaviour
         holeNumber = 1;
         holeText.text = "Hole " + holeNumber;
         totalScoreText.gameObject.SetActive(false);
+        gameFinished = false;
     }
 
     public void AddShot()
@@ -39,7 +42,7 @@ public class ScoreManager : MonoBehaviour
             totalScoreText.text = "Congrats !\nYou finished with a score of " + _score +
                                   " shots !\n\nPress \"n\" to play again !";
             totalScoreText.gameObject.SetActive(true);
-            ballController.gameFinished = true;
+            gameFinished = true;
         }
         else
         {
